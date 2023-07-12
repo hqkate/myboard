@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>留言板</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            margin-top: 0;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        .message {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .message p {
+            margin: 0;
+        }
+        .message .timestamp {
+            font-size: 0.8em;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <h1>留言板</h1>
+
+    <form id="messageForm">
+        <label for="name">姓名：</label>
+        <input type="text" id="name" required>
+        <br>
+        <label for="message">留言：</label>
+        <textarea id="message" required></textarea>
+        <br>
+        <button type="submit">提交</button>
+    </form>
+
+    <div id="messageBoard">
+        <!-- 留言将会被动态添加到这里 -->
+    </div>
+
+    <script>
+        // 监听提交留言表单的事件
+        document.getElementById('messageForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // 阻止表单的默认提交行为
+
+            // 获取用户输入的姓名和留言内容
+            var nameInput = document.getElementById('name');
+            var messageInput = document.getElementById('message');
+            var name = nameInput.value;
+            var message = messageInput.value;
+
+            // 创建留言元素
+            var messageElement = document.createElement('div');
+            messageElement.className = 'message';
+            messageElement.innerHTML = '<p>' + message + '</p><p class="timestamp">发表人：' + name + ', 发表时间：' + new Date() + '</p>';
+
+            // 将留言元素添加到留言板
+            var messageBoard = document.getElementById('messageBoard');
+            messageBoard.appendChild(messageElement);
+
+            // 清空输入框
+            nameInput.value = '';
+            messageInput.value = '';
+        });
+    </script>
+</body>
+</html>
